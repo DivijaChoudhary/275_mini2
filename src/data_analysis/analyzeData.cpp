@@ -1,10 +1,14 @@
 #include "analyzeData.h"
 #include <algorithm>
+#include <iostream>
 
 std::vector<PollutionData> analyzeDataSubsetforozone(const std::vector<PollutionData>& dataSubset) {
     std::vector<PollutionData> filteredData;
     for (const auto& item : dataSubset) {
-        if (item.parameter == "OZONE") {
+        std::string parameter = item.parameter;
+        parameter.erase(std::remove(parameter.begin(), parameter.end(), '\"'), parameter.end());
+
+        if (parameter == "OZONE") {
             filteredData.push_back(item);
         }
     }
@@ -14,17 +18,24 @@ std::vector<PollutionData> analyzeDataSubsetforozone(const std::vector<Pollution
 std::vector<PollutionData> analyzeDataSubsetforno2(const std::vector<PollutionData>& dataSubset) {
     std::vector<PollutionData> filteredData;
     for (const auto& item : dataSubset) {
-        if (item.parameter == "NO2") {
+        std::string parameter = item.parameter;
+        parameter.erase(std::remove(parameter.begin(), parameter.end(), '\"'), parameter.end());
+
+        if (parameter == "NO2") {
             filteredData.push_back(item);
         }
     }
+   
     return filteredData;
 }
 
 std::vector<PollutionData> analyzeDataSubsetforso2(const std::vector<PollutionData>& dataSubset) {
     std::vector<PollutionData> filteredData;
     for (const auto& item : dataSubset) {
-        if (item.parameter == "SO2") {
+        std::string parameter = item.parameter;
+        parameter.erase(std::remove(parameter.begin(), parameter.end(), '\"'), parameter.end());
+
+        if (parameter == "SO2") {
             filteredData.push_back(item);
         }
     }
@@ -34,7 +45,10 @@ std::vector<PollutionData> analyzeDataSubsetforso2(const std::vector<PollutionDa
 std::vector<PollutionData> analyzeDataSubsetforpm(const std::vector<PollutionData>& dataSubset) {
     std::vector<PollutionData> filteredData;
     for (const auto& item : dataSubset) {
-        if (item.parameter == "PM2.5") {
+        std::string parameter = item.parameter;
+        parameter.erase(std::remove(parameter.begin(), parameter.end(), '\"'), parameter.end());
+
+        if (parameter == "PM2.5") {
             filteredData.push_back(item);
         }
     }
@@ -44,7 +58,10 @@ std::vector<PollutionData> analyzeDataSubsetforpm(const std::vector<PollutionDat
 std::vector<PollutionData> analyzeDataSubsetforpm10(const std::vector<PollutionData>& dataSubset) {
     std::vector<PollutionData> filteredData;
     for (const auto& item : dataSubset) {
-        if (item.parameter == "PM10") {
+        std::string parameter = item.parameter;
+        parameter.erase(std::remove(parameter.begin(), parameter.end(), '\"'), parameter.end());
+
+        if (parameter == "PM10") {
             filteredData.push_back(item);
         }
     }
@@ -54,7 +71,10 @@ std::vector<PollutionData> analyzeDataSubsetforpm10(const std::vector<PollutionD
 std::vector<PollutionData> analyzeDataSubsetforco(const std::vector<PollutionData>& dataSubset) {
     std::vector<PollutionData> filteredData;
     for (const auto& item : dataSubset) {
-        if (item.parameter == "CO") {
+        std::string parameter = item.parameter;
+        parameter.erase(std::remove(parameter.begin(), parameter.end(), '\"'), parameter.end());
+
+        if (parameter == "CO") {
             filteredData.push_back(item);
         }
     }

@@ -35,10 +35,39 @@ std::vector<PollutionData> loadData(const std::string& rootFolderPath) {
                                 if (file.is_open()) {
                                     std::string line;
                                     while (std::getline(file, line)) {
-                                        std::istringstream iss(line);
-                                        std::string parameter, concentration_str;
+                                        // std::istringstream iss(line);
+                                        // std::string parameter, concentration_str;
                                         // Parse CSV line here and populate PollutionData
                                         // This is simplified; you should adapt it based on your CSV structure
+                                        std::istringstream iss(line);
+                                            std::string parameter, concentration_str, unit_str;
+
+                                            // Skip first three columns (longitude, latitude, utcDate)
+                                            std::string skip;
+                                            for (int i = 0; i < 3; ++i) {
+                                                std::getline(iss, skip, ',');
+                                            }
+
+                                            // Read pollutant, concentration, and unit from columns 4, 5, and 6 respectively
+                                            if (std::getline(iss, parameter, ',') &&
+                                                std::getline(iss, concentration_str, ',')
+                                                ) {
+                                                
+                                                concentration_str.erase(std::remove(concentration_str.begin(), concentration_str.end(), '\"'), concentration_str.end());
+                                                
+
+                                                double concentration;
+                                                if (std::stringstream(concentration_str) >> concentration) {
+                                                    #pragma omp critical
+                                                    data.push_back({ parameter, concentration });
+                                                } else {
+                                                    #pragma omp critical
+                                                    std::cerr << "Error converting concentration to double from line: " << line << std::endl;
+                                                }
+                                            } else {
+                                                #pragma omp critical
+                                                std::cerr << "Error reading data from line: " << line << std::endl;
+                                            }
                                     }
                                     file.close();
                                 }
