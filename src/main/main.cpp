@@ -5,6 +5,11 @@
 #include "../models/pollutionData.h"
 #include "../data_loading/loadData.h"
 #include "../data_analysis/analyzeData.h"
+#include "../data_analysis/analyzeHotspot.h"
+#include <unordered_set>
+
+
+
 
 using namespace std;
 using namespace std::chrono;
@@ -78,6 +83,9 @@ int main(int argc, char** argv) {
     MPI_Reduce(&total_pm10_count, &total_pm10_global, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
     MPI_Reduce(&total_no_count, &total_no_global, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
     MPI_Reduce(&total_ozone_count, &total_ozone_global, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
+   
+    // Record end time
+
 
     auto endTime = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(endTime - startTime);
